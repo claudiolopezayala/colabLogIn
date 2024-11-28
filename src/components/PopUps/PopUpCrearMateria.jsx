@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-
 function PopUpCrearMateria({ closePopup, setMaterias }) {
   const [formData, setFormData] = useState({ nombre: '', maestro: '' });
 

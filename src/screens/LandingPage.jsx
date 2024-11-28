@@ -5,7 +5,7 @@ import PopUpCalificaciones from "../components/PopUps/PopUpCalificaciones";
 import PopUpCrearMateria from "../components/PopUps/PopUpCrearMateria";
 import PopUpAgregarMateria from "../components/PopUps/PopUpAgregarMateria";
 import PopUpAdministrarAlumno from "../components/PopUps/PopUpAdministrarAlumno";
-// import PopUpEditarMateria from "../components/PopUps/PopUpEditarMateria";
+import PopUpEditarMateria from "../components/PopUps/PopUpEditarMateria";
 
 const LandingPage = () => {
   const [alumnos, setAlumnos] = useState([]);
