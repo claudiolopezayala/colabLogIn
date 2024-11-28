@@ -1,6 +1,7 @@
 import { Routes, Route } from "react-router-dom";
 import LoginPage from "./screens/LoginPage";
 import LandingPage from "./screens/LandingPage";
+import './styles/App.css';
 
 const App = () => {
   return (

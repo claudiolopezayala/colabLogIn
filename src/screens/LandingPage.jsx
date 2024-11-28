@@ -1,55 +1,76 @@
+import React, { useState } from "react";
+import '../styles/LandingPage.css';
+import PopUpCrearAlumno from "../components/PopUps/PopUpCrearAlumno";
+import PopUpCalificaciones from "../components/PopUps/PopUpCalificaciones";
+import PopUpCrearMateria from "../components/PopUps/PopUpCrearMateria";
+import PopUpAgregarMateria from "../components/PopUps/PopUpAgregarMateria";
+import PopUpAdministrarAlumno from "../components/PopUps/PopUpAdministrarAlumno";
+// import PopUpEditarMateria from "../components/PopUps/PopUpEditarMateria";
 
-import {React, useState} from 'react';
-import {PopUpCrearAlumno} from '../components/PopUps/PopUpCrearAlumno.jsx';
-import {PopUpCrearMateria} from '../components/PopUps/PopUpCrearMateria.jsx'; 
-import {PopUpAgregarMateria} from '../components/PopUps/PopUpAgregarMateria.jsx';
-import {PopUpAdministrarAlumno} from '../components/PopUps/PopUpAdministrarAlumno.jsx';
-import {PopUpEditarMateria} from '../components/PopUps/PopUpEditarMateria.jsx';
+const LandingPage = () => {
+  const [alumnos, setAlumnos] = useState([]);
+  const [materias, setMaterias] = useState([]);
+  const [popup, setPopup] = useState(null);
+  const [selectedAlumno, setSelectedAlumno] = useState(null);
+  const [selectedMateria, setSelectedMateria] = useState(null);
 
-const LandingPage = () => { 
-    const [alumnos, setAlumnos] = useState([]);
-    const [materias, setMaterias] = useState([]);
-    const [popup, setPopup] = useState(null);
-    const [selectedAlumno, setSelectedAlumno] = useState(null);
-    const [selectedMateria, setSelectedMateria] = useState(null);
+  const openPopup = (type, alumno = null, materia = null) => {
+    setPopup(type);
+    setSelectedAlumno(alumno);
+    setSelectedMateria(materia);
+  };
 
-    const openPopup = (type, alumno = null, materia = null) => {
-        setPopup(type);
-        setSelectedAlumno(alumno);
-        setSelectedMateria(materia);
-    };
+  return (
+    <div className="landing-container">
+      <h1 className="landing-title">Bienvenido</h1>
+      <div className="button-container">
+        <button className="button" onClick={() => openPopup("crearAlumno")}>
+          Crear Alumno
+        </button>
+        <button className="button" onClick={() => openPopup("crearMateria")}>
+          Crear Materia
+        </button>
+      </div>
 
-    return (
-        <div>
-            <h1>Bienvenidos</h1>
-
-            <button onClick={() => openPopup('crearAlumno')}>Crear Alumno</button>
-            <button onClick={() => openPopup('crearMateria')}>Crear Materia</button>
-
-            <h2>Alumnos</h2>
+      <h2 className="section-title">Alumnos</h2>
       {alumnos.map((alumno, index) => (
-        <div key={index}>
+        <div key={index} className="item">
           {alumno.nombre} {alumno.apellidoPaterno} {alumno.apellidoMaterno}
-          <button onClick={() => openPopup('agregarMateria', alumno)}>Agregar Materia</button>
-          <button onClick={() => openPopup('administrarAlumno', alumno)}>Administrar Alumno</button>
+          <button
+            className="action-button"
+            onClick={() => openPopup("agregarMateria", alumno)}
+          >
+            Agregar Materia
+          </button>
+          <button
+            className="action-button"
+            onClick={() => openPopup("administrarAlumno", alumno)}
+          >
+            Administrar Alumno
+          </button>
         </div>
       ))}
 
-      <h2>Materias</h2>
+      <h2 className="section-title">Materias</h2>
       {materias.map((materia, index) => (
-        <div key={index}>
+        <div key={index} className="item">
           {materia.nombre} - {materia.maestro}
-          <button onClick={() => openPopup('editarMateria', null, materia)}>Editar</button>
+          <button
+            className="action-button"
+            onClick={() => openPopup("editarMateria", null, materia)}
+          >
+            Editar
+          </button>
         </div>
       ))}
 
-      {popup === 'crearAlumno' && (
+      {popup === "crearAlumno" && (
         <PopUpCrearAlumno closePopup={() => setPopup(null)} setAlumnos={setAlumnos} />
       )}
-      {popup === 'crearMateria' && (
+      {popup === "crearMateria" && (
         <PopUpCrearMateria closePopup={() => setPopup(null)} setMaterias={setMaterias} />
       )}
-      {popup === 'agregarMateria' && (
+      {popup === "agregarMateria" && (
         <PopUpAgregarMateria
           closePopup={() => setPopup(null)}
           alumno={selectedAlumno}
@@ -57,14 +78,14 @@ const LandingPage = () => {
           setAlumnos={setAlumnos}
         />
       )}
-      {popup === 'administrarAlumno' && (
+      {popup === "administrarAlumno" && (
         <PopUpAdministrarAlumno
           closePopup={() => setPopup(null)}
           alumno={selectedAlumno}
           setAlumnos={setAlumnos}
         />
       )}
-      {popup === 'editarMateria' && (
+      {popup === "editarMateria" && (
         <PopUpEditarMateria
           closePopup={() => setPopup(null)}
           materia={selectedMateria}
@@ -73,6 +94,6 @@ const LandingPage = () => {
       )}
     </div>
   );
-}
+};
 
 export default LandingPage;
