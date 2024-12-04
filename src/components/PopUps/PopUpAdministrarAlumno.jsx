@@ -1,10 +1,6 @@
 import React from "react";
 
-const PopUpAdministrarAlumno = ({
-  closePopup,
-  alumno,
-  setAlumnos,
-}) => {
+const PopUpAdministrarAlumno = ({ closePopup, alumno, setAlumnos, openPopup }) => {
   const handleEliminarMateria = (materia) => {
     setAlumnos((prev) =>
       prev.map((a) =>
@@ -36,7 +32,12 @@ const PopUpAdministrarAlumno = ({
           >
             Eliminar
           </button>
-          <button className="popup-button">Calificar</button>
+          <button
+            onClick={() => openPopup("calificaciones", alumno, materia)}
+            className="popup-button"
+          >
+            Calificar
+          </button>
         </div>
       ))}
       <button onClick={handleEliminarAlumno} className="popup-cancel">

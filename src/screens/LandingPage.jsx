@@ -20,6 +20,26 @@ const LandingPage = () => {
     setSelectedMateria(materia);
   };
 
+  const handleGuardarCalificaciones = (alumno, materia, calificaciones) => {
+    setAlumnos((prev) =>
+      prev.map((a) =>
+        a === alumno
+          ? {
+              ...a,
+              materias: a.materias.map((m) =>
+                m === materia
+                  ? {
+                      ...m,
+                      calificaciones: calificaciones, // Guardamos las calificaciones
+                    }
+                  : m
+              ),
+            }
+          : a
+      )
+    );
+  };
+
   return (
     <div className="landing-container">
       <h1 className="landing-title">Bienvenido</h1>
@@ -83,6 +103,7 @@ const LandingPage = () => {
           closePopup={() => setPopup(null)}
           alumno={selectedAlumno}
           setAlumnos={setAlumnos}
+          openPopup={openPopup}
         />
       )}
       {popup === "editarMateria" && (
@@ -90,6 +111,14 @@ const LandingPage = () => {
           closePopup={() => setPopup(null)}
           materia={selectedMateria}
           setMaterias={setMaterias}
+        />
+      )}
+      {popup === "calificaciones" && (
+        <PopUpCalificaciones
+          closePopup={() => setPopup(null)}
+          alumno={selectedAlumno}
+          materia={selectedMateria}
+          handleGuardarCalificaciones={handleGuardarCalificaciones}
         />
       )}
     </div>
